@@ -1,0 +1,119 @@
+title: "OCI Secure Landing Zone Configuration"
+stackDescription: "A stack to deploy OCI architecture best practices."
+schemaVersion: 1.1.0
+version: "0.0.1"
+locale: "en"
+
+variableGroups:
+  - title: "Environment"
+    variables:
+      - "region"
+      - "customer_label"
+
+  - title: "Events and Notifications"
+    variables:
+      - "network_admin_email_endpoints"
+
+  - title: "Cloud Guard"
+    variables:
+      - "cloud_guard_configuration_status"
+  
+  - title: "Vulnerability Scanning"
+    variables:
+      - "vss_create"
+      - "vss_scan_schedule"
+      - "vss_scan_day"
+
+  - title: "Hidden Variables"
+    visible: false
+    variables:
+      - "tenancy_ocid"
+      - "user_ocid"
+      - "fingerprint"
+      - "private_key_path"
+      - "private_key_password"
+  
+variables:
+  
+  service_label:
+    type: string
+    title: "Service Label"
+    minLength: 1
+    maxLength: 8
+    pattern: "^[A-Za-z][A-Za-z0-9]{1,7}$"
+    description: "A unique label that gets prepended to all resources created"
+    required: true
+
+  region:
+    type: oci:identity:region:name
+    title: "Region"
+    description: "The region for resources deployment."
+    required: true
+    
+  network_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+    title: "Network Admin Email Endpoints"
+    required: true
+    description: "List of email addresses for all network related notifications. (Type an email address and hit enter to enter multiple values)"
+
+  cloud_guard_configuration_status:
+    type: enum
+    title: "Cloud Guard Configuration Status"
+    description: "Determines whether Cloud Guard should be enabled in the tenancy. If 'ENABLE', a target is created for the Root compartment."
+    required: true
+    enum:
+      - ENABLE
+      - DISABLE
+  
+  # Vulnerability Scanning
+  vss_create:
+    type: boolean
+    title: "Enable Vulnerability Scanning?"
+    description: "Whether Vulnerability Scanning should be enabled. If checked, a scanning recipe is created and scanning targets are created for each Landing Zone compartment."
+    default: true
+
+  vss_scan_schedule:
+    type: enum
+    title: "Scanning Schedule"
+    description: "When to scan. WEEKLY or DAILY."
+    default: WEEKLY
+    visible: vss_create
+    enum:
+      - WEEKLY
+      - DAILY
+
+  vss_scan_day:
+    type: enum
+    title: "Scanning Day"
+    description: "The day when to scan. Applies to weekly scans only."
+    default: SUNDAY
+    enum:
+      - SUNDAY
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY 
+    visible:
+      and:
+        - ${vss_create}
+        - eq:
+          - vss_scan_schedule
+          - "WEEKLY"
+
+# Variables not required to display to user
+  user_ocid:
+    type: string
+
+  fingerprint:
+    type: string
+
+  private_key_path:
+    type: string
+
+  private_key_password:
+    type: password
