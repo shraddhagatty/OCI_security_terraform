@@ -8,6 +8,7 @@ variable "region" {}
 ##################
 #Cloud Guard
 ##################
+/*
 variable "policies_in_root_compartment" {
   type        = string
   default     = "CREATE"
@@ -26,7 +27,7 @@ variable "cloud_guard_configuration_status" {
     error_message = "Validation failed for cloud_guard_configuration_status: valid values (case insensitive) are ENABLE or DISABLE."
   }
 }
-
+*/
 ####################################
 # Vulnerability Scanning Service
 ####################################

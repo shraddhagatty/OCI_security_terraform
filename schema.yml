@@ -10,9 +10,9 @@ variableGroups:
       - "region"
       - "customer_label"
 
-  - title: "Events and Notifications"
-    variables:
-      - "network_admin_email_endpoints"
+ # - title: "Events and Notifications"
+  #  variables:
+   #   - "network_admin_email_endpoints"
 
   - title: "Cloud Guard"
     variables:
@@ -35,7 +35,7 @@ variableGroups:
   
 variables:
   
-  service_label:
+  customer_label:
     type: string
     title: "Service Label"
     minLength: 1
@@ -50,14 +50,14 @@ variables:
     description: "The region for resources deployment."
     required: true
     
-  network_admin_email_endpoints:
-    type: array
-    items:
-      type: string
-    uniqueItems: true
-    title: "Network Admin Email Endpoints"
-    required: true
-    description: "List of email addresses for all network related notifications. (Type an email address and hit enter to enter multiple values)"
+  #network_admin_email_endpoints:
+   # type: array
+    #items:
+     # type: string
+    #uniqueItems: true
+    #title: "Network Admin Email Endpoints"
+    #required: true
+    #description: "List of email addresses for all network related notifications. (Type an email address and hit enter to enter multiple values)"
 
   cloud_guard_configuration_status:
     type: enum

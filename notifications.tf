@@ -1,6 +1,6 @@
 # Copyright (c) 2021 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
+/*
 locals {
     notify_on_network_changes_rule      = {key:"${var.customer_label}-notify-on-network-changes-rule",       name:"${var.customer_label}-notify-on-network-changes-rule"}
     notify_on_storage_changes_rule      = {key:"${var.customer_label}-notify-on-storage-changes-rule",       name:"${var.customer_label}-notify-on-storage-changes-rule"}
@@ -157,3 +157,4 @@ resource "null_resource" "slow_down_notifications" {
     command = "sleep ${local.delay_in_secs}" # Wait for compartments to be available.
   }
 }
+*/
